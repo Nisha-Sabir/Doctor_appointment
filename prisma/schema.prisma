@@ -1,0 +1,33 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ClinicSettings {
+  id               Int      @id @default(1)
+  clinicName       String
+  phone            String
+  address          String
+  onlineFee        String
+  inClinicFee      String
+  timingsMonToThu  String
+  timingsFriday    String
+  timingsSaturday  String
+  timingsSunday    String
+  updatedAt        DateTime @updatedAt
+}
+
+model Appointment {
+  id        String   @id @default(cuid())
+  name      String
+  contact   String
+  date      String
+  time      String
+  type      String   // "Online" | "In-Clinic"
+  status    String   @default("Pending") // "Pending" | "Approved" | "Completed" | "Cancelled"
+  createdAt DateTime @default(now())
+}
