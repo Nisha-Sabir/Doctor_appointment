@@ -8,8 +8,8 @@ import ImageSlider from "./components/ImageSlider";
 
 export const dynamic = 'force-dynamic';
 
-export default function Home() {
-  const db = getDB();
+export default async function Home() {
+  const db = await getDB();
   const settings = db.settings;
   const publishedReviews = (db.reviews || []).filter(r => r.status === 'Published');
 

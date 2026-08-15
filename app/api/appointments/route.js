@@ -1,18 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getDB } from '../../../lib/db';
-import fs from 'fs';
-import path from 'path';
-
-const dbPath = path.join(process.cwd(), 'local-db.json');
+import { getDB, saveDB } from '../../../lib/db';
 
 export async function GET() {
   try {
-    const db = getDB();
-    // Ensure appointments array exists
-    if (!db.appointments) {
-      db.appointments = [];
-    }
-    return NextResponse.json(db.appointments);
+    const db = await getDB();
+    return NextResponse.json(db.appointments || []);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch appointments' }, { status: 500 });
   }
@@ -21,7 +13,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const data = await request.json();
-    const db = getDB();
+    const db = await getDB();
     
     if (!db.appointments) {
       db.appointments = [];
@@ -35,7 +27,7 @@ export async function POST(request) {
     };
 
     db.appointments.push(newAppointment);
-    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    await saveDB(db);
 
     return NextResponse.json({ success: true, appointment: newAppointment });
   } catch (error) {
@@ -46,14 +38,14 @@ export async function POST(request) {
 export async function PATCH(request) {
   try {
     const { id, status } = await request.json();
-    const db = getDB();
+    const db = await getDB();
     
     if (!db.appointments) db.appointments = [];
     
     const index = db.appointments.findIndex(app => app.id === id);
     if (index !== -1) {
       db.appointments[index].status = status;
-      fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+      await saveDB(db);
       return NextResponse.json({ success: true, appointment: db.appointments[index] });
     }
     

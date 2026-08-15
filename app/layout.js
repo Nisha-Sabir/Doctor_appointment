@@ -16,8 +16,8 @@ export const metadata = {
   description: "Book online appointments with Dr. Qasim. Get premium healthcare services, online consultations, and manage your health efficiently.",
 };
 
-export default function RootLayout({ children }) {
-  const db = getDB();
+export default async function RootLayout({ children }) {
+  const db = await getDB();
   const phone = db.settings?.phone || '';
 
   return (
