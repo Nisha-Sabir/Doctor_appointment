@@ -393,3 +393,22 @@
   }
 }
 
+@media (max-width: 768px) {
+  .pageContent {
+    padding: 1rem;
+  }
+  .topbar {
+    padding: 0 1rem;
+  }
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  .table th, .table td {
+    padding: 0.75rem 1rem;
+  }
+  .actionBtns {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

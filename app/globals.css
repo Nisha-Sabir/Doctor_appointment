@@ -26,29 +26,6 @@
   --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[data-theme="dark"] {
-  --primary-color: #38bdf8;
-  --primary-dark: #0284c7;
-  --primary-light: #1e293b;
-  
-  --secondary-color: #f1f5f9;
-  --secondary-dark: #f8fafc;
-  
-  --bg-color: #0f172a;
-  --card-bg: #1e293b;
-  
-  --text-main: #cbd5e1;
-  --text-muted: #94a3b8;
-  
-  --border-color: #334155;
-  
-  --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.8);
-}
-
-
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -78,11 +55,6 @@ body::before {
   opacity: 0.12; /* Increased for better visibility */
   z-index: -1;
   pointer-events: none;
-}
-
-[data-theme="dark"] body::before {
-  opacity: 0.08;
-  filter: invert(1);
 }
 
 a {

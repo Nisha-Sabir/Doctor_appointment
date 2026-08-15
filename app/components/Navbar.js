@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styles from "./Navbar.module.css";
-import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   return (
@@ -19,7 +18,6 @@ export default function Navbar() {
           <Link href="/#services" className={styles.navLink}>Services</Link>
           <Link href="/#reviews" className={styles.navLink}>Reviews</Link>
           <Link href="/#contact" className={styles.navLink}>Contact</Link>
-          <ThemeToggle />
           <Link href="/book-appointment" className={styles.bookBtn}>
             Book Appointment
           </Link>
