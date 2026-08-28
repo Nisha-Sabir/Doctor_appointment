@@ -3,7 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import styles from './messages.module.css';
 
-export default function MessagesPage() {
+import { Suspense } from 'react';
+
+function MessagesContent() {
   const searchParams = useSearchParams();
   const preselectedDoctor = searchParams.get('doctor') || '';
   const preselectedDoctorName = searchParams.get('doctorName') || '';
@@ -230,5 +232,13 @@ export default function MessagesPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function MessagesPage() {
+  return (
+    <Suspense fallback={<div style={{padding: '4rem', textAlign: 'center'}}>Loading messages...</div>}>
+      <MessagesContent />
+    </Suspense>
   );
 }
