@@ -410,6 +410,12 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  .topbarRight > button {
+    display: none;
+  }
+  .adminProfile > div:nth-child(2) {
+    display: none;
+  }
 }
 
 /* Messages Layout */

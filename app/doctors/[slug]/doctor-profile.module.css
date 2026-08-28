@@ -269,17 +269,17 @@
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 960px) {
-  .profileHeroContent { grid-template-columns: 1fr; }
-  .profileImgWrap { width: 100%; text-align: center; }
+  .profileHeroContent { grid-template-columns: 1fr; text-align: center; }
+  .profileImgWrap { width: 100%; display: flex; justify-content: center; margin-bottom: 1rem; }
   .profileImg { width: 180px; height: 230px; }
   .profileGrid { grid-template-columns: 1fr; }
-  .profileRight { order: -1; }
+  .profileRight { order: 2; }
 }
 
 @media (max-width: 640px) {
   .profileHero { padding: 3rem 0; }
   .profileName { font-size: 1.75rem; }
-  .profileStats { flex-direction: column; gap: 0.75rem; }
+  .profileStats { flex-direction: column; gap: 0.75rem; margin: 0 auto; }
   .pStatDivider { width: 60%; height: 1px; }
   .profileActions { flex-direction: column; }
   .profileActions .btn { justify-content: center; }
