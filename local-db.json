@@ -1,15 +1,89 @@
 {
   "settings": {
-    "clinicName": "homipathic",
-    "phone": "+92 300 1234567",
-    "address": "123 Health Avenue, Medical Block, Gulberg III, Lahore",
-    "onlineFee": "1500",
-    "inClinicFee": "3000",
-    "timingsMonToThu": "04:00 PM - 09:00 PM",
+    "clinicName": "Fazal Dental Clinic",
+    "tagline": "Your Smile, Our Priority",
+    "phone": "0332-3284294",
+    "email": "drasimatiq@hotmail.com",
+    "address": "Shop no #05, Crescent Arcade, Sector 5-K, North Karachi",
+    "whatsappNumber": "923323284294",
+    "onlineFee": "1000",
+    "inClinicFee": "1500",
+    "timingsMonToThu": "05:00 PM - 09:00 PM",
     "timingsFriday": "03:00 PM - 07:00 PM",
-    "timingsSaturday": "11:00 AM - 02:00 PM",
-    "timingsSunday": "Closed"
+    "timingsSaturday": "11:00 AM - 03:00 PM",
+    "timingsSunday": "Closed",
+    "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review",
+    "googleMapsUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.234567890!2d74.34567!3d31.51234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sFazal+Dental+Clinic!5e0!3m2!1sen!2spk!4v1234567890",
+    "googleMapsLink": "https://maps.google.com/?q=Crescent+Arcade+Sector+5-K+North+Karachi",
+    "clinicImages": []
   },
+  "messages": [
+    {
+      "id": "1787902921316",
+      "patientName": "nisha",
+      "patientPhone": "03092141578",
+      "doctorId": "dr-sana",
+      "doctorName": "Dr. Sana Malik",
+      "content": "hy mam",
+      "sender": "patient",
+      "isRead": true,
+      "createdAt": "2026-08-28T07:42:01.316Z"
+    },
+    {
+      "id": "1787903051016",
+      "patientName": "nisha",
+      "patientPhone": "03092141578",
+      "doctorId": "dr-sana",
+      "doctorName": "Dr. Sana Malik",
+      "content": "thnkyuh mam for approved",
+      "sender": "patient",
+      "isRead": true,
+      "createdAt": "2026-08-28T07:44:11.016Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "name": "Ali Raza",
+      "text": "Fazal Dental Clinic ne mera dant bilkul theek kar diya. Dr. Fazal bahut mehnat aur care se treatment karte hain. Highly recommended!",
+      "status": "Published",
+      "rating": 5,
+      "createdAt": "2026-08-01T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Sara Noor",
+      "text": "Braces treatment was excellent. The clinic is very hygienic and staff is professional. Very happy with the results!",
+      "status": "Published",
+      "rating": 5,
+      "createdAt": "2026-08-10T12:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Usman Tariq",
+      "text": "Root canal ho gaya bilkul dard ke bina. Dr. Ahmad ne bahut achha kaam kiya. Clinic ka environment bhi bohot acha hai.",
+      "status": "Published",
+      "rating": 5,
+      "createdAt": "2026-08-15T09:00:00.000Z"
+    },
+    {
+      "id": "1787904202750",
+      "name": "nisha",
+      "text": "Fazal Dental Clinic ne mera dant bilkul theek kar diya. Dr. Fazal bahut mehnat aur care se treatment karte hain. Highly recommended!\n",
+      "status": "Pending",
+      "date": "2026-08-28T08:03:22.750Z"
+    },
+    {
+      "id": "1787904653993",
+      "name": "Nisha",
+      "text": "Fazal Dental Clinic ne mera dant bilkul theek kar diya. Dr. Fazal bahut mehnat aur care se treatment karte hain. Highly recommended!",
+      "rating": 5,
+      "doctorId": "dr-sana",
+      "doctorName": "Dr. Sana Malik",
+      "status": "Published",
+      "createdAt": "2026-08-28T08:10:53.993Z"
+    }
+  ],
   "appointments": [
     {
       "id": "1786820765800",
@@ -17,12 +91,146 @@
       "lastName": "Sabir",
       "phone": "03092141578",
       "email": "sanasabir195@gmail.com",
-      "date": "2026-08-21",
+      "date": "2026-08-27",
       "time": "17:00",
       "type": "in_person",
+      "doctorId": "dr-fazal",
+      "doctorName": "Dr. Fazal ur Rehman",
       "paymentMethod": "clinic",
       "status": "Pending",
       "createdAt": "2026-08-15T19:06:05.800Z"
+    },
+    {
+      "id": "1787902911559",
+      "firstName": "Sana",
+      "lastName": "Sabir",
+      "phone": "03092141578",
+      "email": "sanasabir195@gmail.com",
+      "date": "2026-08-28",
+      "time": "09:00",
+      "type": "in_person",
+      "doctorId": "dr-sana",
+      "doctorName": "Dr. Sana Malik",
+      "notes": "",
+      "paymentMethod": "clinic",
+      "status": "Completed",
+      "createdAt": "2026-08-28T07:41:51.559Z",
+      "updatedAt": "2026-08-28T08:04:13.993Z"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "dr-fazal",
+      "slug": "dr-fazal",
+      "name": "Dr. Fazal ur Rehman",
+      "title": "BDS, FCPS (Orthodontics)",
+      "specialization": "Orthodontist & Chief Dental Surgeon",
+      "experience": "15+ Years",
+      "photo": "/doctors/dr-fazal.png",
+      "bio": "Dr. Fazal ur Rehman is the founder and chief dental surgeon at Fazal Dental Clinic. With over 15 years of experience in orthodontics and general dentistry, he has treated thousands of patients with compassionate care and modern techniques.",
+      "qualifications": [
+        "BDS – University of Health Sciences, Lahore",
+        "FCPS (Orthodontics) – College of Physicians & Surgeons Pakistan",
+        "Member – Pakistan Dental Association"
+      ],
+      "services": [
+        "Braces & Aligners",
+        "Orthodontic Treatment",
+        "Dental Implants",
+        "Smile Makeover"
+      ],
+      "clinicTimings": "Mon–Sat: 5:00 PM – 9:00 PM",
+      "onlineTimings": "Mon–Fri: 12:00 PM – 2:00 PM",
+      "clinicFee": "1500",
+      "onlineFee": "1000",
+      "whatsapp": "923323284294",
+      "phone": "+92 300 1234567",
+      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review"
+    },
+    {
+      "id": "dr-ahmad",
+      "slug": "dr-ahmad",
+      "name": "Dr. Ahmad Bilal",
+      "title": "BDS, MCPS (Endodontics)",
+      "specialization": "Endodontist — Root Canal Specialist",
+      "experience": "10+ Years",
+      "photo": "/doctors/dr-ahmad.png",
+      "bio": "Dr. Ahmad Bilal specializes in root canal treatments and endodontic procedures. He uses the latest rotary endodontic techniques ensuring pain-free, precise treatment.",
+      "qualifications": [
+        "BDS – Dow University of Health Sciences",
+        "MCPS (Endodontics) – CPSP Pakistan",
+        "Certified in Rotary Endodontics"
+      ],
+      "services": [
+        "Root Canal Treatment",
+        "Dental Crowns",
+        "Tooth Extractions",
+        "Periapical Surgery"
+      ],
+      "clinicTimings": "Mon–Fri: 6:00 PM – 9:00 PM",
+      "onlineTimings": "Tue–Thu: 11:00 AM – 1:00 PM",
+      "clinicFee": "1500",
+      "onlineFee": "1000",
+      "whatsapp": "923021234567",
+      "phone": "+92 302 1234567",
+      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review"
+    },
+    {
+      "id": "dr-sana",
+      "slug": "dr-sana",
+      "name": "Dr. Sana Malik",
+      "title": "BDS, Diploma Pedodontics",
+      "specialization": "Pediatric Dentist",
+      "experience": "8+ Years",
+      "photo": "/doctors/dr-sana.png",
+      "bio": "Dr. Sana Malik is our dedicated pediatric dentist who specializes in making dental visits a positive experience for children.",
+      "qualifications": [
+        "BDS – King Edward Medical University",
+        "Diploma in Pedodontics – PGMI Lahore",
+        "Certified Pediatric Sedation Specialist"
+      ],
+      "services": [
+        "Children's Dental Care",
+        "Milk Teeth Treatment",
+        "Fluoride Application",
+        "Dental Sealants"
+      ],
+      "clinicTimings": "Mon–Sat: 4:00 PM – 8:00 PM",
+      "onlineTimings": "Mon, Wed, Fri: 10:00 AM – 12:00 PM",
+      "clinicFee": "3000",
+      "onlineFee": "800",
+      "whatsapp": "923031234567",
+      "phone": "+92 303 1234567",
+      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review",
+      "offDays": "sunday off"
+    },
+    {
+      "id": "dr-usman",
+      "slug": "dr-usman",
+      "name": "Dr. Usman Ghani",
+      "title": "BDS, Prosthodontics",
+      "specialization": "Prosthodontist & Cosmetic Dentist",
+      "experience": "12+ Years",
+      "photo": "/doctors/dr-usman.png",
+      "bio": "Dr. Usman Ghani is an expert in cosmetic dentistry and dental prosthetics. He transforms smiles with veneers, teeth whitening, and complete smile makeovers.",
+      "qualifications": [
+        "BDS – Allama Iqbal Medical College",
+        "Training in Aesthetic Dentistry – Lahore",
+        "Certified in Digital Smile Design"
+      ],
+      "services": [
+        "Teeth Whitening",
+        "Dental Veneers",
+        "Dentures & Bridges",
+        "Smile Makeover"
+      ],
+      "clinicTimings": "Tue–Sun: 5:00 PM – 9:00 PM",
+      "onlineTimings": "Mon–Wed: 2:00 PM – 4:00 PM",
+      "clinicFee": "2000",
+      "onlineFee": "1500",
+      "whatsapp": "923041234567",
+      "phone": "+92 304 1234567",
+      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review"
     }
   ]
 }

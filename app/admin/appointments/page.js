@@ -16,8 +16,8 @@ export default function AppointmentsPage() {
       const res = await fetch('/api/appointments');
       if (res.ok) {
         const data = await res.json();
-        // Sort by newest first
-        const sorted = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const list = data.appointments || data || [];
+        const sorted = list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setAppointments(sorted);
       }
     } catch (err) {
@@ -148,7 +148,7 @@ export default function AppointmentsPage() {
             
             {filteredAppointments.length === 0 && (
               <tr>
-                <td colSpan="6" style={{ textAlign: 'center', padding: '3rem 1rem', color: '#64748b' }}>
+                <td colSpan={6} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#64748b' }}>
                   No appointments found for this filter.
                 </td>
               </tr>

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export function middleware(request) {
+export function proxy(request) {
   const path = request.nextUrl.pathname;
 
   // Protect /admin routes
@@ -8,7 +8,6 @@ export function middleware(request) {
     const token = request.cookies.get('admin_token')?.value;
 
     if (!token) {
-      // Redirect to login if not authenticated
       return NextResponse.redirect(new URL('/login', request.url));
     }
   }

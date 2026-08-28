@@ -412,3 +412,38 @@
   }
 }
 
+/* Messages Layout */
+.messagesLayout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+.messagesSidebar {
+  width: 320px;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.messagesMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-alt);
+}
+
+@media (max-width: 768px) {
+  .messagesLayout {
+    flex-direction: column;
+  }
+  .messagesSidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    max-height: 250px;
+  }
+  .messagesMain {
+    flex: 1;
+  }
+}
+

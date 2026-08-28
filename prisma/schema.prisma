@@ -1,33 +1,270 @@
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
 }
 
-model ClinicSettings {
-  id               Int      @id @default(1)
-  clinicName       String
-  phone            String
-  address          String
-  onlineFee        String
-  inClinicFee      String
-  timingsMonToThu  String
-  timingsFriday    String
-  timingsSaturday  String
-  timingsSunday    String
-  updatedAt        DateTime @updatedAt
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  RECEPTIONIST
+  PATIENT
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum AppointmentType {
+  CLINIC_VISIT
+  ONLINE_CONSULTATION
+  FOLLOW_UP
+  EMERGENCY
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  PARTIAL
+  REFUNDED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  phone         String?   @unique
+  passwordHash  String?
+  role          String    @default("PATIENT") // using string for sqlite compatibility with enums
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations based on role
+  doctorProfile    DoctorProfile?
+  patientProfile   PatientProfile?
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+}
+
+model DoctorProfile {
+  id                 String    @id @default(cuid())
+  userId             String    @unique
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  specialization     String?
+  qualifications     String?
+  pmdcNumber         String?
+  experienceYears    Int?
+  bio                String?
+  consultationFee    Float?
+  onlineFee          Float?
+  
+  // Custom URL / QR
+  slug               String?   @unique 
+  qrCodeUrl          String?
+
+  clinics            DoctorClinic[]
+  appointments       Appointment[]
+  prescriptions      Prescription[]
+  reviews            Review[]
+}
+
+model Clinic {
+  id          String   @id @default(cuid())
+  name        String
+  address     String
+  googleMaps  String?
+  phone       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  doctors     DoctorClinic[]
+  appointments Appointment[]
+}
+
+// Junction table for Doctors and Clinics (Many-to-Many)
+model DoctorClinic {
+  id        String   @id @default(cuid())
+  doctorId  String
+  clinicId  String
+  doctor    DoctorProfile @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  clinic    Clinic        @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  
+  // Specific schedule for this clinic
+  timings   String? // e.g. "Mon-Wed 5PM-9PM"
+
+  @@unique([doctorId, clinicId])
+}
+
+model PatientProfile {
+  id                 String    @id @default(cuid())
+  userId             String    @unique
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  dob                DateTime?
+  gender             String?
+  bloodGroup         String?
+  address            String?
+  emergencyContact   String?
+  
+  // Medical History
+  allergies          String?
+  existingConditions String?
+  surgicalHistory    String?
+  
+  familyMembers      FamilyMember[]
+  appointments       Appointment[]
+  prescriptions      Prescription[]
+  labReports         LabReport[]
+  reviews            Review[]
+  documents          Document[]
+}
+
+model FamilyMember {
+  id               String         @id @default(cuid())
+  patientProfileId String
+  patientProfile   PatientProfile @relation(fields: [patientProfileId], references: [id], onDelete: Cascade)
+  
+  name             String
+  relationship     String
+  dob              DateTime?
+  gender           String?
+  bloodGroup       String?
+  
+  // Allows booking appointments for family members
+  appointments     Appointment[]
 }
 
 model Appointment {
-  id        String   @id @default(cuid())
-  name      String
-  contact   String
-  date      String
-  time      String
-  type      String   // "Online" | "In-Clinic"
-  status    String   @default("Pending") // "Pending" | "Approved" | "Completed" | "Cancelled"
-  createdAt DateTime @default(now())
+  id               String            @id @default(cuid())
+  tokenNumber      String?           // E.g., A-08
+  date             DateTime
+  startTime        DateTime
+  endTime          DateTime
+  
+  type             String            @default("CLINIC_VISIT") // Using string for sqlite compat
+  status           String            @default("PENDING") // Using string for sqlite compat
+  
+  // Foreign Keys
+  doctorId         String
+  doctor           DoctorProfile     @relation(fields: [doctorId], references: [id])
+  
+  patientId        String
+  patient          PatientProfile    @relation(fields: [patientId], references: [id])
+  
+  familyMemberId   String?
+  familyMember     FamilyMember?     @relation(fields: [familyMemberId], references: [id])
+  
+  clinicId         String?
+  clinic           Clinic?           @relation(fields: [clinicId], references: [id])
+  
+  // Consultation Details (SOAP notes)
+  chiefComplaint   String?
+  vitalsBp         String?
+  vitalsPulse      Int?
+  vitalsTemp       Float?
+  vitalsWeight     Float?
+  notes            String?
+  diagnosis        String?
+  
+  // Billing
+  fee              Float?
+  paymentStatus    String            @default("UNPAID") // using string for sqlite compat
+  
+  prescription     Prescription?
+  
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model Prescription {
+  id            String      @id @default(cuid())
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  
+  doctorId      String
+  doctor        DoctorProfile @relation(fields: [doctorId], references: [id])
+  
+  patientId     String
+  patient       PatientProfile @relation(fields: [patientId], references: [id])
+  
+  instructions  String?
+  followUpDate  DateTime?
+  
+  medicines     PrescribedMedicine[]
+  
+  createdAt     DateTime    @default(now())
+}
+
+model PrescribedMedicine {
+  id             String       @id @default(cuid())
+  prescriptionId String
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+  
+  name           String
+  strength       String?
+  dose           String?      // e.g., "1 tablet"
+  frequency      String?      // e.g., "Twice daily"
+  duration       String?      // e.g., "5 days"
+  instructions   String?      // e.g., "After meal"
+}
+
+model LabReport {
+  id          String         @id @default(cuid())
+  patientId   String
+  patient     PatientProfile @relation(fields: [patientId], references: [id])
+  
+  testName    String
+  date        DateTime       @default(now())
+  resultText  String?
+  fileUrl     String?
+}
+
+model Document {
+  id          String         @id @default(cuid())
+  patientId   String
+  patient     PatientProfile @relation(fields: [patientId], references: [id])
+  
+  title       String
+  type        String         // e.g., "X-ray", "Medical Certificate"
+  fileUrl     String
+  uploadedAt  DateTime       @default(now())
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  senderId    String
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId  String
+  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  
+  content     String
+  attachmentUrl String?
+  isRead      Boolean  @default(false)
+  
+  createdAt   DateTime @default(now())
+}
+
+model Review {
+  id          String         @id @default(cuid())
+  rating      Int            // 1-5
+  comment     String?
+  
+  doctorId    String
+  doctor      DoctorProfile  @relation(fields: [doctorId], references: [id])
+  
+  patientId   String
+  patient     PatientProfile @relation(fields: [patientId], references: [id])
+  
+  createdAt   DateTime       @default(now())
 }

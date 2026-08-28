@@ -1,28 +1,53 @@
 import styles from './admin.module.css';
 import Link from 'next/link';
+import { getDB } from '../../lib/db';
 
-// Mock Data for Dashboard
-const stats = [
-  { title: "Total Appointments", value: "1,248", icon: "calendar", type: "primary" },
-  { title: "Today's Consultations", value: "12", icon: "users", type: "warning" },
-  { title: "Pending Approvals", value: "5", icon: "clock", type: "warning" },
-  { title: "Revenue (This Month)", value: "Rs. 45k", icon: "trending-up", type: "success" }
-];
+export const dynamic = 'force-dynamic';
 
-const recentAppointments = [
-  { id: "APT-001", name: "Ali Raza", contact: "+92 300 1112223", date: "2023-11-20", time: "16:30", type: "Online", status: "Approved" },
-  { id: "APT-002", name: "Sara Khan", contact: "+92 321 4445556", date: "2023-11-20", time: "17:00", type: "In-Clinic", status: "Pending" },
-  { id: "APT-003", name: "Usman Ahmed", contact: "+92 333 7778889", date: "2023-11-21", time: "18:15", type: "Online", status: "Approved" },
-  { id: "APT-004", name: "Ayesha Malik", contact: "+92 345 9990001", date: "2023-11-21", time: "19:00", type: "In-Clinic", status: "Completed" }
-];
+export default async function AdminDashboard() {
+  const db = await getDB();
+  const appointments = db.appointments || [];
+  
+  // Calculate Stats
+  const totalAppointments = appointments.length;
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  
+  const todaysConsultations = appointments.filter(a => a.date === todayStr).length;
+  const pendingApprovals = appointments.filter(a => a.status === 'Pending').length;
+  
+  // Calculate revenue (this month)
+  const thisMonthStr = today.toISOString().slice(0, 7); // YYYY-MM
+  let revenue = 0;
+  appointments.forEach(apt => {
+    if (apt.date && apt.date.startsWith(thisMonthStr) && apt.status === 'Completed') {
+      const isOnline = apt.type === 'online';
+      const doctor = db.doctors?.find(d => d.id === apt.doctorId);
+      if (doctor) {
+        revenue += isOnline ? doctor.onlineFee : doctor.clinicFee;
+      } else {
+        revenue += isOnline ? 1000 : 2000;
+      }
+    }
+  });
 
-export default function AdminDashboard() {
+  const stats = [
+    { title: "Total Appointments", value: totalAppointments.toString(), icon: "calendar", type: "primary" },
+    { title: "Today's Consultations", value: todaysConsultations.toString(), icon: "users", type: "warning" },
+    { title: "Pending Approvals", value: pendingApprovals.toString(), icon: "clock", type: "warning" },
+    { title: "Revenue (This Month)", value: `Rs. ${revenue.toLocaleString()}`, icon: "trending-up", type: "success" }
+  ];
+
+  const recentAppointments = appointments
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5);
+
   const getIcon = (name) => {
     switch(name) {
-      case 'calendar': return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>;
-      case 'users': return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>;
-      case 'clock': return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>;
-      case 'trending-up': return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>;
+      case 'calendar': return <span style={{fontSize: '1.5rem'}}>📅</span>;
+      case 'users': return <span style={{fontSize: '1.5rem'}}>👥</span>;
+      case 'clock': return <span style={{fontSize: '1.5rem'}}>🕒</span>;
+      case 'trending-up': return <span style={{fontSize: '1.5rem'}}>📈</span>;
       default: return null;
     }
   };
@@ -67,28 +92,36 @@ export default function AdminDashboard() {
               <tr>
                 <th>ID</th>
                 <th>Patient</th>
+                <th>Doctor</th>
                 <th>Date & Time</th>
                 <th>Type</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              {recentAppointments.map((apt) => (
+              {recentAppointments.length === 0 ? (
+                <tr>
+                  <td colSpan={6} style={{textAlign: 'center', padding: '2rem'}}>No appointments yet</td>
+                </tr>
+              ) : recentAppointments.map((apt) => (
                 <tr key={apt.id}>
-                  <td style={{fontWeight: '500'}}>{apt.id}</td>
+                  <td style={{fontWeight: '500'}}>
+                    <span title={apt.id}>{apt.id.substring(0, 6)}...</span>
+                  </td>
                   <td>
                     <div className={styles.patientInfo}>
-                      <span className={styles.patientName}>{apt.name}</span>
-                      <span className={styles.patientContact}>{apt.contact}</span>
+                      <span className={styles.patientName}>{apt.firstName} {apt.lastName}</span>
+                      <span className={styles.patientContact}>{apt.phone}</span>
                     </div>
                   </td>
+                  <td>{apt.doctorName}</td>
                   <td>
                     <div className={styles.patientInfo}>
                       <span>{apt.date}</span>
                       <span className={styles.patientContact}>{apt.time}</span>
                     </div>
                   </td>
-                  <td>{apt.type}</td>
+                  <td>{apt.type === 'online' ? 'Online' : 'In-Clinic'}</td>
                   <td>
                     <span className={`${styles.badge} ${getStatusBadgeClass(apt.status)}`}>
                       {apt.status}

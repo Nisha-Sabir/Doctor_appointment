@@ -1,14 +1,22 @@
 import { NextResponse } from 'next/server';
 import { getDB, saveDB } from '../../../lib/db';
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const doctorId = searchParams.get('doctorId');
     const db = await getDB();
-    return NextResponse.json(db.appointments || []);
+    let appointments = db.appointments || [];
+    if (doctorId) {
+      appointments = appointments.filter(a => a.doctorId === doctorId);
+    }
+    appointments = appointments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return NextResponse.json({ appointments });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch appointments' }, { status: 500 });
   }
 }
+
 
 export async function POST(request) {
   try {

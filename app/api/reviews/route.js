@@ -1,10 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getDB, saveDB } from '../../../lib/db';
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const doctorId = searchParams.get('doctorId');
     const db = await getDB();
-    return NextResponse.json(db.reviews || []);
+    let reviews = db.reviews || [];
+    if (doctorId) {
+      reviews = reviews.filter(r => r.doctorId === doctorId);
+    }
+    return NextResponse.json(reviews);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch reviews' }, { status: 500 });
   }
@@ -21,9 +27,13 @@ export async function POST(request) {
 
     const newReview = {
       id: Date.now().toString(),
-      ...data,
+      name: data.name,
+      text: data.text,
+      rating: data.rating || 5,
+      doctorId: data.doctorId || null,
+      doctorName: data.doctorName || null,
       status: 'Pending',
-      date: new Date().toISOString()
+      createdAt: new Date().toISOString()
     };
 
     db.reviews.push(newReview);
