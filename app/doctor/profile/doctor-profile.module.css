@@ -139,4 +139,19 @@
   .grid {
     grid-template-columns: 1fr;
   }
+
+  .profileContainer {
+    padding: 1rem;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
 }
