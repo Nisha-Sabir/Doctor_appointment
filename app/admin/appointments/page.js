@@ -11,7 +11,7 @@ export default function AppointmentsPage() {
     fetchAppointments();
   }, []);
 
-  const fetchAppointments = async () => {
+  async function fetchAppointments() {
     try {
       const res = await fetch('/api/appointments');
       if (res.ok) {

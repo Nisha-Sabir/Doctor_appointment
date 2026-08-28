@@ -19,7 +19,7 @@ export default function DoctorProfilePage() {
     fetchProfile();
   }, []);
 
-  const fetchProfile = async () => {
+  async function fetchProfile() {
     try {
       const res = await fetch('/api/doctor-profile');
       if (res.ok) {

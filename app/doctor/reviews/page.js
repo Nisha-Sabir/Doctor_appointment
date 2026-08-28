@@ -12,14 +12,14 @@ export default function DoctorReviewsPage() {
     fetchWhoAmI();
   }, []);
 
-  const fetchWhoAmI = async () => {
+  async function fetchWhoAmI() {
     const res = await fetch('/api/doctor-whoami');
     if (res.ok) {
       const data = await res.json();
       setDoctorId(data.doctorId);
       fetchReviews(data.doctorId);
     } else {
-      window.location.href = '/doctor/login';
+      window.location.assign('/doctor/login');
     }
   };
 

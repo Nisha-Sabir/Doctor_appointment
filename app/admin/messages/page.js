@@ -16,7 +16,7 @@ export default function AdminMessagesPage() {
     fetchMessages();
   }, []);
 
-  const fetchMessages = () => {
+  function fetchMessages() {
     fetch('/api/messages')
       .then(r => r.json())
       .then(data => {

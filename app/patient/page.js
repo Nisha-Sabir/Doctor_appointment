@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './patient.module.css';
 
 export default function PatientPortalPage() {
@@ -36,28 +36,7 @@ export default function PatientPortalPage() {
   }, []);
 
   // Restore session from localStorage
-  useEffect(() => {
-    const savedPhone = localStorage.getItem('patient_phone');
-    const savedName = localStorage.getItem('patient_name');
-    if (savedPhone && savedName) {
-      setPhone(savedPhone);
-      setName(savedName);
-      setIsLoggedIn(true);
-      loadData(savedPhone);
-    }
-  }, []);
-
-  // Live polling — refresh every 6 seconds when logged in
-  useEffect(() => {
-    if (isLoggedIn && phone) {
-      pollingRef.current = setInterval(() => {
-        loadData(phone, true);
-      }, 6000);
-    }
-    return () => clearInterval(pollingRef.current);
-  }, [isLoggedIn, phone]);
-
-  const loadData = async (ph, silent = false) => {
+  const loadData = useCallback(async (ph, silent = false) => {
     if (!silent) setLoading(true);
     try {
       const res = await fetch(`/api/patient-portal?phone=${encodeURIComponent(ph)}`);
@@ -73,7 +52,29 @@ export default function PatientPortalPage() {
       }
     } catch (e) {}
     if (!silent) setLoading(false);
-  };
+  }, [selectedDoctorId]);
+
+  useEffect(() => {
+    const savedPhone = localStorage.getItem('patient_phone');
+    const savedName = localStorage.getItem('patient_name');
+    if (savedPhone && savedName) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPhone(savedPhone);
+      setName(savedName);
+      setIsLoggedIn(true);
+      loadData(savedPhone);
+    }
+  }, [loadData]);
+
+  // Live polling — refresh every 6 seconds when logged in
+  useEffect(() => {
+    if (isLoggedIn && phone) {
+      pollingRef.current = setInterval(() => {
+        loadData(phone, true);
+      }, 6000);
+    }
+    return () => clearInterval(pollingRef.current);
+  }, [isLoggedIn, phone, loadData]);
 
   const handleLogin = (e) => {
     e.preventDefault();

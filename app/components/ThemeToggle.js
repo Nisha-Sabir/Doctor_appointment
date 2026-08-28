@@ -8,6 +8,7 @@ export default function ThemeToggle() {
     // Check initial preference
     const stored = localStorage.getItem('theme');
     if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsDark(true);
       document.documentElement.setAttribute('data-theme', 'dark');
     }

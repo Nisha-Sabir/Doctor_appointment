@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useState, useEffect, useRef } from 'react';
 import styles from './doctor-messages.module.css';
 
@@ -23,7 +23,7 @@ export default function DoctorMessagesPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, activeSession]);
 
-  const fetchWhoAmI = async () => {
+  async function fetchWhoAmI() {
     const res = await fetch('/api/doctor-whoami');
     if (res.ok) {
       const data = await res.json();
@@ -31,7 +31,7 @@ export default function DoctorMessagesPage() {
       fetchMessages(data.doctorId);
       pollingRef.current = setInterval(() => fetchMessages(data.doctorId, true), 6000);
     } else {
-      window.location.href = '/doctor/login';
+      window.location.assign('/doctor/login');
     }
   };
 
@@ -107,6 +107,7 @@ export default function DoctorMessagesPage() {
       sender: 'doctor'
     };
 
+    // eslint-disable-next-line react-hooks/purity
     const tempMsg = { id: 'temp-' + Date.now(), ...payload, isRead: true, createdAt: new Date().toISOString() };
     setActiveSession(prev => ({ ...prev, messages: [...prev.messages, tempMsg] }));
     setReplyContent('');

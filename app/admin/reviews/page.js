@@ -11,7 +11,7 @@ export default function ReviewsPage() {
     fetchReviews();
   }, []);
 
-  const fetchReviews = async () => {
+  async function fetchReviews() {
     try {
       const res = await fetch('/api/reviews');
       if (res.ok) {
