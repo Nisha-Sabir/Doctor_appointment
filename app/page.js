@@ -86,6 +86,11 @@ export default async function Home() {
           <div className={styles.heroBg}>
             <div className={styles.heroBlob1}></div>
             <div className={styles.heroBlob2}></div>
+            <div className={`${styles.floatingTooth} ${styles.tooth1}`}>🦷</div>
+            <div className={`${styles.floatingTooth} ${styles.tooth2}`}>✨</div>
+            <div className={`${styles.floatingTooth} ${styles.tooth3}`}>🦷</div>
+            <div className={`${styles.floatingTooth} ${styles.tooth4}`}>🦷</div>
+            <div className={`${styles.floatingTooth} ${styles.tooth5}`}>🦷</div>
           </div>
           <div className={`container ${styles.heroContent}`}>
             <div className={`${styles.heroText} animate-fade-in`}>
