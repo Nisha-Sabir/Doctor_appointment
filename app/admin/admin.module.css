@@ -18,6 +18,9 @@
   transition: transform 0.3s ease;
 }
 
+/* Empty class to ensure Next.js CSS modules exports it for JS */
+.sidebarOpen {}
+
 .sidebarHeader {
   padding: 1.5rem;
   border-bottom: 1px solid #e2e8f0;

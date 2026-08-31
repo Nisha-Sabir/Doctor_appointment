@@ -1143,7 +1143,7 @@
 }
 
 @media (max-width: 960px) {
-  .heroContent { grid-template-columns: 1fr; gap: 2.5rem; }
+  .heroContent { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .heroVisual { 
     display: flex;
     justify-content: center;
@@ -1180,13 +1180,15 @@
   .doctorsGrid { grid-template-columns: 1fr; }
   .servicesGrid { grid-template-columns: 1fr; }
   .reviewsGrid { grid-template-columns: 1fr; }
-  .heroActions { flex-direction: column; }
-  .aboutFeatures { grid-template-columns: 1fr; }
-  .footerGrid { grid-template-columns: 1fr; }
+  .heroContent { grid-template-columns: 1fr 1fr; gap: 1rem; align-items: center; }
+  .heroTitle { font-size: 1.5rem; }
+  .heroDesc { font-size: 0.875rem; }
+  .heroActions { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .heroTrust { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .heroMainImg { height: 220px; border-radius: 1rem; }
+  .heroVisual { max-width: 100%; margin: 0; }
   .footerBottom { flex-direction: column; gap: 0.5rem; text-align: center; }
   .aboutImgBadge { right: 1rem; bottom: -1rem; }
   .featuresBarGrid { grid-template-columns: 1fr; }
   .aboutStats { grid-template-columns: repeat(2, 1fr); }
-  .heroMainImg { height: 280px; }
-  .heroVisual { max-width: 320px; }
 }
