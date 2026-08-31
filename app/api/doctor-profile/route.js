@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { getDB, saveDB } from '../../../lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const cookieStore = await cookies();
   const doctorToken = cookieStore.get('doctor_token')?.value;
