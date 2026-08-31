@@ -1,16 +1,17 @@
-import fs from 'fs';
-import path from 'path';
+import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
+import { saveDB } from '../../../lib/db';
 
-const dbPath = path.join(process.cwd(), 'local-db.json');
+export const dynamic = 'force-dynamic';
 
+// Default fresh data — used to reset KV store
 const defaultData = {
   appointments: [],
   reviews: [
     {
       id: "1",
       name: "Ali Raza",
-      text: "NextGenStudio Dental Clinic ne mera dant bilkul theek kar diya. Dr. NextGenStudio bahut mehnat aur care se treatment karte hain. Highly recommended!",
+      text: "Great clinic! Very professional staff and excellent treatment.",
       status: "Published",
       rating: 5,
       createdAt: new Date().toISOString()
@@ -42,7 +43,7 @@ const defaultData = {
       specialization: "Orthodontist & Chief Dental Surgeon",
       experience: "15+ Years",
       photo: "/doctors/dr-nextgenstudio.png",
-      bio: "Dr. Fazal ur Rehman is the founder and chief dental surgeon at NextGenStudio Dental Clinic. With over 15 years of experience in orthodontics and general dentistry, he has treated thousands of patients with compassionate care and modern techniques.",
+      bio: "Dr. Fazal ur Rehman is the founder and chief dental surgeon. With over 15 years of experience in orthodontics and general dentistry, he has treated thousands of patients with compassionate care and modern techniques.",
       qualifications: ["BDS – University of Health Sciences, Lahore", "FCPS (Orthodontics) – College of Physicians & Surgeons Pakistan", "Member – Pakistan Dental Association"],
       services: ["Braces & Aligners", "Orthodontic Treatment", "Dental Implants", "Smile Makeover"],
       clinicTimings: "Mon–Sat: 5:00 PM – 9:00 PM",
@@ -80,7 +81,7 @@ const defaultData = {
       specialization: "Pediatric Dentist",
       experience: "8+ Years",
       photo: "/doctors/dr-sana.png",
-      bio: "Dr. Sana Malik is our dedicated pediatric dentist who specializes in making dental visits a positive experience for children. With her gentle approach and child-friendly techniques, she ensures kids feel comfortable and at ease throughout their treatment.",
+      bio: "Dr. Sana Malik is our dedicated pediatric dentist who specializes in making dental visits a positive experience for children.",
       qualifications: ["BDS – King Edward Medical University", "Diploma in Pedodontics – PGMI Lahore", "Certified Pediatric Sedation Specialist"],
       services: ["Children's Dental Care", "Milk Teeth Treatment", "Fluoride Application", "Dental Sealants", "Space Maintainers"],
       clinicTimings: "Mon–Sat: 4:00 PM – 8:00 PM",
@@ -99,7 +100,7 @@ const defaultData = {
       specialization: "Prosthodontist & Cosmetic Dentist",
       experience: "12+ Years",
       photo: "/doctors/dr-usman.png",
-      bio: "Dr. Usman Ghani is an expert in cosmetic dentistry and dental prosthetics. He transforms smiles with veneers, teeth whitening, and complete smile makeovers. His artistic eye combined with technical excellence ensures beautiful, natural-looking results.",
+      bio: "Dr. Usman Ghani is an expert in cosmetic dentistry and dental prosthetics. He transforms smiles with veneers, teeth whitening, and complete smile makeovers.",
       qualifications: ["BDS – Allama Iqbal Medical College", "Training in Aesthetic Dentistry – Lahore", "Certified in Digital Smile Design"],
       services: ["Teeth Whitening", "Dental Veneers", "Dentures & Bridges", "Dental Implants", "Smile Makeover", "Composite Bonding"],
       clinicTimings: "Tue–Sun: 5:00 PM – 9:00 PM",
@@ -125,71 +126,46 @@ const defaultData = {
     timingsSaturday: "11:00 AM - 03:00 PM",
     timingsSunday: "Closed",
     googleReviewUrl: "https://g.page/r/nextgenstudiodentalclinic/review",
-    googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.234567890!2d74.34567!3d31.51234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sNextGenStudio+Dental+Clinic!5e0!3m2!1sen!2spk!4v1234567890",
+    googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.234567890!2d74.34567!3d31.51234!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sNextGenStudio+Dental+Clinic!5e0!3m2!1sen!2spk!4v1234567890",
     googleMapsLink: "https://maps.google.com/?q=Crescent+Arcade+Sector+5-K+North+Karachi",
     clinicImages: []
   }
 };
 
-export async function getDB() {
-  try {
-    const kvUrl = process.env.KV_REST_API_URL;
-    const kvToken = process.env.KV_REST_API_TOKEN;
+export async function GET(request) {
+  // Secret key check — prevents accidental reset
+  const { searchParams } = new URL(request.url);
+  const secret = searchParams.get('secret');
 
-    if (kvUrl && kvToken) {
-      try {
-        const data = await kv.get('clinic_db');
-        if (!data) {
-          await kv.set('clinic_db', defaultData);
-          return defaultData;
-        }
-        return {
-          ...data,
-          doctors: data.doctors || defaultData.doctors,
-          messages: data.messages || [],
-          settings: { ...defaultData.settings, ...(data.settings || {}) }
-        };
-      } catch (kvError) {
-        console.error("KV read error:", kvError?.message || kvError);
-        // Fall through to file-based DB
-      }
-    }
-
-    if (!fs.existsSync(dbPath)) {
-      fs.writeFileSync(dbPath, JSON.stringify(defaultData, null, 2));
-      return defaultData;
-    }
-    const data = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-    return {
-      ...data,
-      doctors: data.doctors || defaultData.doctors,
-      messages: data.messages || [],
-      settings: { ...defaultData.settings, ...(data.settings || {}) }
-    };
-  } catch (error) {
-    console.error("Database read error:", error);
-    return defaultData;
+  if (secret !== 'reset-ngs-2024') {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-}
 
-export async function saveDB(data) {
   try {
-    const kvUrl = process.env.KV_REST_API_URL;
-    const kvToken = process.env.KV_REST_API_TOKEN;
+    // Try to preserve existing appointments and messages
+    let existingData = null;
+    try {
+      existingData = await kv.get('clinic_db');
+    } catch {}
 
-    if (kvUrl && kvToken) {
-      try {
-        await kv.set('clinic_db', data);
-        return true;
-      } catch (kvError) {
-        console.error("KV write error:", kvError?.message || kvError);
-        // Fall through to file-based DB
-      }
-    }
-    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-    return true;
+    const freshData = {
+      ...defaultData,
+      // Keep existing appointments & messages if any
+      appointments: existingData?.appointments || [],
+      messages: existingData?.messages || [],
+    };
+
+    await saveDB(freshData);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Database reset successfully with correct doctor IDs',
+      doctors: freshData.doctors.map(d => ({ id: d.id, name: d.name }))
+    });
   } catch (error) {
-    console.error("Database write error:", error);
-    return false;
+    return NextResponse.json({
+      error: 'Reset failed',
+      detail: error?.message || String(error)
+    }, { status: 500 });
   }
 }

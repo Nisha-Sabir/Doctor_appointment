@@ -94,8 +94,8 @@
       "date": "2026-08-27",
       "time": "17:00",
       "type": "in_person",
-      "doctorId": "dr-nextgenstudio",
-      "doctorName": "Dr. NextGenStudio ur Rehman",
+      "doctorId": "dr-fazal",
+      "doctorName": "Dr. Fazal ur Rehman",
       "paymentMethod": "clinic",
       "status": "Pending",
       "createdAt": "2026-08-15T19:06:05.800Z"
@@ -120,14 +120,14 @@
   ],
   "doctors": [
     {
-      "id": "dr-nextgenstudio",
-      "slug": "dr-nextgenstudio",
-      "name": "Dr. NextGenStudio ur Rehman",
+      "id": "dr-fazal",
+      "slug": "dr-fazal",
+      "name": "Dr. Fazal ur Rehman",
       "title": "BDS, FCPS (Orthodontics)",
       "specialization": "Orthodontist & Chief Dental Surgeon",
       "experience": "15+ Years",
       "photo": "/doctors/dr-nextgenstudio.png",
-      "bio": "Dr. NextGenStudio ur Rehman is the founder and chief dental surgeon at NextGenStudio Dental Clinic. With over 15 years of experience in orthodontics and general dentistry, he has treated thousands of patients with compassionate care and modern techniques.",
+      "bio": "Dr. Fazal ur Rehman is the founder and chief dental surgeon at NextGenStudio Dental Clinic. With over 15 years of experience in orthodontics and general dentistry, he has treated thousands of patients with compassionate care and modern techniques.",
       "qualifications": [
         "BDS – University of Health Sciences, Lahore",
         "FCPS (Orthodontics) – College of Physicians & Surgeons Pakistan",
