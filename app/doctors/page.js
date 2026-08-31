@@ -5,8 +5,8 @@ import styles from "./doctors.module.css";
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: "Our Doctors — Fazal Dental Clinic",
-  description: "Meet our 4 expert dental specialists at Fazal Dental Clinic, North Karachi. Book appointments online.",
+  title: "Our Doctors — NextGenStudio Dental Clinic",
+  description: "Meet our 4 expert dental specialists at NextGenStudio Dental Clinic, North Karachi. Book appointments online.",
 };
 
 export default async function DoctorsPage() {

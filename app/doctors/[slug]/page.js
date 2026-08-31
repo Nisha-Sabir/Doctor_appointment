@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const doctor = (db.doctors || []).find(d => d.slug === params.slug);
   if (!doctor) return { title: 'Doctor Not Found' };
   return {
-    title: `${doctor.name} — Fazal Dental Clinic`,
+    title: `${doctor.name} — NextGenStudio Dental Clinic`,
     description: doctor.bio,
   };
 }
@@ -22,7 +22,7 @@ export default async function DoctorProfilePage({ params }) {
   
   if (!doctor) return notFound();
 
-  const profileUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://fazaldentalclinic.com'}/doctors/${doctor.slug}`;
+  const profileUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://nextgenstudiodentalclinic.com'}/doctors/${doctor.slug}`;
 
   return (
     <main style={{ paddingTop: '72px' }}>

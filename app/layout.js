@@ -12,11 +12,11 @@ const font = Poppins({
 });
 
 export const metadata = {
-  title: "Fazal Dental Clinic — Expert Dental Care in Karachi",
-  description: "Book online dental appointments at Fazal Dental Clinic, North Karachi. Expert dentists for braces, root canal, implants, whitening, pediatric dentistry & more. Call 0332-3284294.",
-  keywords: "dental clinic karachi, fazal dental clinic, dentist karachi, braces karachi, root canal karachi, dental implants karachi, north karachi dentist",
+  title: "NextGenStudio Dental Clinic — Expert Dental Care in Karachi",
+  description: "Book online dental appointments at NextGenStudio Dental Clinic, North Karachi. Expert dentists for braces, root canal, implants, whitening, pediatric dentistry & more. Call 0332-3284294.",
+  keywords: "dental clinic karachi, nextgenstudio dental clinic, dentist karachi, braces karachi, root canal karachi, dental implants karachi, north karachi dentist",
   openGraph: {
-    title: "Fazal Dental Clinic — Your Smile, Our Priority",
+    title: "NextGenStudio Dental Clinic — Your Smile, Our Priority",
     description: "Expert dental care in North Karachi — 4 specialist dentists, online appointments, modern clinic.",
     type: "website",
   },
@@ -29,7 +29,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={font.variable}>
-        <Navbar clinicName={settings.clinicName || "Fazal Dental Clinic"} />
+        <Navbar clinicName={settings.clinicName || "NextGenStudio Dental Clinic"} />
         {children}
         <WhatsAppBtn phone={settings.whatsappNumber || settings.phone || ''} />
       </body>

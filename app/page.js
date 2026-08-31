@@ -8,8 +8,8 @@ import AnimatedCounter from "./components/AnimatedCounter";
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: "Fazal Dental Clinic — Expert Dental Care in Karachi",
-  description: "Book appointments at Fazal Dental Clinic, North Karachi. Expert dentists for braces, root canal, implants, whitening & more.",
+  title: "NextGenStudio Dental Clinic — Expert Dental Care in Karachi",
+  description: "Book appointments at NextGenStudio Dental Clinic, North Karachi. Expert dentists for braces, root canal, implants, whitening & more.",
 };
 
 const DENTAL_SERVICES = [
@@ -72,7 +72,7 @@ export default async function Home() {
   const publishedReviews = (db.reviews || []).filter(r => r.status === 'Published');
 
   const displayReviews = publishedReviews.length > 0 ? publishedReviews : [
-    { name: "Ali Raza", text: "Fazal Dental Clinic ne mera dant bilkul theek kar diya. Dr. Fazal bahut care se treatment karte hain. Highly recommended!", rating: 5 },
+    { name: "Ali Raza", text: "NextGenStudio Dental Clinic ne mera dant bilkul theek kar diya. Dr. NextGenStudio bahut care se treatment karte hain. Highly recommended!", rating: 5 },
     { name: "Sara Noor", text: "Braces treatment excellent tha! Clinic bohot clean aur staff professional hai.", rating: 5 },
     { name: "Usman Tariq", text: "Root canal bilkul dard ke bina. Dr. Ahmad ne bohot acha kaam kiya.", rating: 5 }
   ];
@@ -119,7 +119,7 @@ export default async function Home() {
               {/* Trust Avatars */}
               <div className={styles.heroTrust}>
                 <div className={styles.trustAvatars}>
-                  <img src="/doctors/dr-fazal.png" alt="Doctor" />
+                  <img src="/doctors/dr-nextgenstudio.png" alt="Doctor" />
                   <img src="/doctors/dr-sana.png" alt="Doctor" />
                   <img src="/doctors/dr-ahmad.png" alt="Doctor" />
                   <img src="/doctors/dr-usman.png" alt="Doctor" />
@@ -247,7 +247,7 @@ export default async function Home() {
           <ScrollReveal className={`container ${styles.aboutGrid}`}>
             <div className={styles.aboutImgWrap}>
               <div className={styles.aboutImgGrid}>
-                <img src="/clinic-interior.jpg" alt="Fazal Dental Clinic Interior" className={styles.aboutImgMain} />
+                <img src="/clinic-interior.jpg" alt="NextGenStudio Dental Clinic Interior" className={styles.aboutImgMain} />
                 <img src="/clinic-1.png" alt="Clinic" className={styles.aboutImgSecondary} />
               </div>
               <div className={styles.aboutImgBadge}>
@@ -260,7 +260,7 @@ export default async function Home() {
               <h2 className={styles.sectionTitle}>Your Smile is Our Priority</h2>
               <div className="divider"></div>
               <p className={styles.aboutDesc}>
-                At Fazal Dental Clinic, we are committed to providing high-quality dental
+                At NextGenStudio Dental Clinic, we are committed to providing high-quality dental
                 care in a comfortable and welcoming environment. Our goal is to help you
                 achieve a healthy, beautiful smile that lasts a lifetime.
               </p>
@@ -543,7 +543,7 @@ export default async function Home() {
             <div className={styles.footerLogo}>
               <div className={styles.footerLogoIcon}>🦷</div>
               <div>
-                <div className={styles.footerLogoName}>Fazal Dental Clinic</div>
+                <div className={styles.footerLogoName}>NextGenStudio Dental Clinic</div>
                 <div className={styles.footerTagline}>{settings.tagline}</div>
               </div>
             </div>
@@ -604,7 +604,7 @@ export default async function Home() {
         </div>
 
         <div className={styles.footerBottom} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', textAlign: 'center' }}>
-          <p>&copy; {new Date().getFullYear()} Fazal Dental Clinic. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} NextGenStudio Dental Clinic. All Rights Reserved.</p>
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
             Powered by <span style={{ fontWeight: '600', color: 'var(--primary-color)' }}>NextGen Studio</span>
           </p>

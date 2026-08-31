@@ -1,6 +1,6 @@
 {
   "settings": {
-    "clinicName": "Fazal Dental Clinic",
+    "clinicName": "NextGenStudio Dental Clinic",
     "tagline": "Your Smile, Our Priority",
     "phone": "0332-3284294",
     "email": "drasimatiq@hotmail.com",
@@ -12,8 +12,8 @@
     "timingsFriday": "03:00 PM - 07:00 PM",
     "timingsSaturday": "11:00 AM - 03:00 PM",
     "timingsSunday": "Closed",
-    "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review",
-    "googleMapsUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.234567890!2d74.34567!3d31.51234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sFazal+Dental+Clinic!5e0!3m2!1sen!2spk!4v1234567890",
+    "googleReviewUrl": "https://g.page/r/nextgenstudiodentalclinic/review",
+    "googleMapsUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.234567890!2d74.34567!3d31.51234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sNextGenStudio+Dental+Clinic!5e0!3m2!1sen!2spk!4v1234567890",
     "googleMapsLink": "https://maps.google.com/?q=Crescent+Arcade+Sector+5-K+North+Karachi",
     "clinicImages": []
   },
@@ -45,7 +45,7 @@
     {
       "id": "1",
       "name": "Ali Raza",
-      "text": "Fazal Dental Clinic ne mera dant bilkul theek kar diya. Dr. Fazal bahut mehnat aur care se treatment karte hain. Highly recommended!",
+      "text": "NextGenStudio Dental Clinic ne mera dant bilkul theek kar diya. Dr. NextGenStudio bahut mehnat aur care se treatment karte hain. Highly recommended!",
       "status": "Published",
       "rating": 5,
       "createdAt": "2026-08-01T10:00:00.000Z"
@@ -69,14 +69,14 @@
     {
       "id": "1787904202750",
       "name": "nisha",
-      "text": "Fazal Dental Clinic ne mera dant bilkul theek kar diya. Dr. Fazal bahut mehnat aur care se treatment karte hain. Highly recommended!\n",
+      "text": "NextGenStudio Dental Clinic ne mera dant bilkul theek kar diya. Dr. NextGenStudio bahut mehnat aur care se treatment karte hain. Highly recommended!\n",
       "status": "Pending",
       "date": "2026-08-28T08:03:22.750Z"
     },
     {
       "id": "1787904653993",
       "name": "Nisha",
-      "text": "Fazal Dental Clinic ne mera dant bilkul theek kar diya. Dr. Fazal bahut mehnat aur care se treatment karte hain. Highly recommended!",
+      "text": "NextGenStudio Dental Clinic ne mera dant bilkul theek kar diya. Dr. NextGenStudio bahut mehnat aur care se treatment karte hain. Highly recommended!",
       "rating": 5,
       "doctorId": "dr-sana",
       "doctorName": "Dr. Sana Malik",
@@ -94,8 +94,8 @@
       "date": "2026-08-27",
       "time": "17:00",
       "type": "in_person",
-      "doctorId": "dr-fazal",
-      "doctorName": "Dr. Fazal ur Rehman",
+      "doctorId": "dr-nextgenstudio",
+      "doctorName": "Dr. NextGenStudio ur Rehman",
       "paymentMethod": "clinic",
       "status": "Pending",
       "createdAt": "2026-08-15T19:06:05.800Z"
@@ -120,14 +120,14 @@
   ],
   "doctors": [
     {
-      "id": "dr-fazal",
-      "slug": "dr-fazal",
-      "name": "Dr. Fazal ur Rehman",
+      "id": "dr-nextgenstudio",
+      "slug": "dr-nextgenstudio",
+      "name": "Dr. NextGenStudio ur Rehman",
       "title": "BDS, FCPS (Orthodontics)",
       "specialization": "Orthodontist & Chief Dental Surgeon",
       "experience": "15+ Years",
-      "photo": "/doctors/dr-fazal.png",
-      "bio": "Dr. Fazal ur Rehman is the founder and chief dental surgeon at Fazal Dental Clinic. With over 15 years of experience in orthodontics and general dentistry, he has treated thousands of patients with compassionate care and modern techniques.",
+      "photo": "/doctors/dr-nextgenstudio.png",
+      "bio": "Dr. NextGenStudio ur Rehman is the founder and chief dental surgeon at NextGenStudio Dental Clinic. With over 15 years of experience in orthodontics and general dentistry, he has treated thousands of patients with compassionate care and modern techniques.",
       "qualifications": [
         "BDS – University of Health Sciences, Lahore",
         "FCPS (Orthodontics) – College of Physicians & Surgeons Pakistan",
@@ -145,7 +145,7 @@
       "onlineFee": "1000",
       "whatsapp": "923323284294",
       "phone": "+92 300 1234567",
-      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review"
+      "googleReviewUrl": "https://g.page/r/nextgenstudiodentalclinic/review"
     },
     {
       "id": "dr-ahmad",
@@ -173,7 +173,7 @@
       "onlineFee": "1000",
       "whatsapp": "923021234567",
       "phone": "+92 302 1234567",
-      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review"
+      "googleReviewUrl": "https://g.page/r/nextgenstudiodentalclinic/review"
     },
     {
       "id": "dr-sana",
@@ -201,7 +201,7 @@
       "onlineFee": "800",
       "whatsapp": "923031234567",
       "phone": "+92 303 1234567",
-      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review",
+      "googleReviewUrl": "https://g.page/r/nextgenstudiodentalclinic/review",
       "offDays": "sunday off"
     },
     {
@@ -230,7 +230,7 @@
       "onlineFee": "1500",
       "whatsapp": "923041234567",
       "phone": "+92 304 1234567",
-      "googleReviewUrl": "https://g.page/r/fazaldentalclinic/review"
+      "googleReviewUrl": "https://g.page/r/nextgenstudiodentalclinic/review"
     }
   ]
 }

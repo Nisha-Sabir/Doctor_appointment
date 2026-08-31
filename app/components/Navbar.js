@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
 
-export default function Navbar({ clinicName = "Fazal Dental Clinic" }) {
+export default function Navbar({ clinicName = "NextGenStudio Dental Clinic" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -21,10 +21,10 @@ export default function Navbar({ clinicName = "Fazal Dental Clinic" }) {
         {/* Logo */}
         <Link href="/" className={styles.logo} onClick={closeMenu}>
           <div className={styles.logoIcon}>
-            <img src="/logo.png" alt="Fazal Dental Clinic Logo" width="32" height="32" style={{ objectFit: 'contain', borderRadius: '6px' }} />
+            <img src="/logo.png" alt="NextGenStudio Dental Clinic Logo" width="32" height="32" style={{ objectFit: 'contain', borderRadius: '6px' }} />
           </div>
           <div className={styles.logoText}>
-            <span className={styles.logoMain}>Fazal</span>
+            <span className={styles.logoMain}>NextGenStudio</span>
             <span className={styles.logoDental}> Dental</span>
             <span className={styles.logoClinic}> Clinic</span>
           </div>
@@ -72,7 +72,7 @@ export default function Navbar({ clinicName = "Fazal Dental Clinic" }) {
                   <path d="M12 2C9 2 6 5 6 8c0 1.5.5 3 1 4l1 5c.2 1 1 2 2 2h4c1 0 1.8-1 2-2l1-5c.5-1 1-2.5 1-4 0-3-3-6-6-6z"/>
                 </svg>
               </div>
-              <span style={{fontWeight: 700, fontSize: '1.1rem', color: 'var(--secondary-dark)'}}>Fazal Dental Clinic</span>
+              <span style={{fontWeight: 700, fontSize: '1.1rem', color: 'var(--secondary-dark)'}}>NextGenStudio Dental Clinic</span>
               <button className={styles.closeBtn} onClick={closeMenu} aria-label="Close menu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>

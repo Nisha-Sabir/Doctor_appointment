@@ -246,7 +246,7 @@ export default function PatientPortalPage() {
         <div className={styles.dashHeader}>
           <div>
             <h1 className={styles.dashTitle}>Welcome, {name}! 👋</h1>
-            <p style={{ color: 'var(--text-muted)', margin: 0 }}>Your personal health portal at Fazal Dental Clinic</p>
+            <p style={{ color: 'var(--text-muted)', margin: 0 }}>Your personal health portal at NextGenStudio Dental Clinic</p>
           </div>
           <button onClick={handleLogout} className="btn btn-outline" style={{ color: '#dc2626', borderColor: '#fecaca' }}>
             Sign Out

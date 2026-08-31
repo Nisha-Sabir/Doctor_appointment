@@ -3,7 +3,7 @@
 export default function WhatsAppBtn({ phone }) {
   // Strip non-numeric characters for the whatsapp link, ensure no '+' at start
   const cleanPhone = phone ? phone.replace(/[^0-9]/g, '') : '923323284294';
-  const waLink = `https://wa.me/${cleanPhone}?text=Hello%20Fazal%20Dental%20Clinic,%20I%20need%20an%20appointment.`;
+  const waLink = `https://wa.me/${cleanPhone}?text=Hello%20NextGenStudio%20Dental%20Clinic,%20I%20need%20an%20appointment.`;
 
   return (
     <a 
