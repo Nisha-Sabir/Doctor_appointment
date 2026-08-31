@@ -27,12 +27,10 @@ export default function DoctorLayout({ children }) {
   return (
     <div className={styles.adminLayout}>
       {/* Mobile Overlay */}
-      {isSidebarOpen && (
-        <div 
-          className={styles.mobileOverlay} 
-          onClick={() => setIsSidebarOpen(false)}
-        ></div>
-      )}
+      <div 
+        className={`${styles.mobileOverlay} ${isSidebarOpen ? styles.mobileOverlayVisible : ''}`}
+        onClick={() => setIsSidebarOpen(false)}
+      ></div>
 
       {/* Sidebar */}
       <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
@@ -119,7 +117,10 @@ export default function DoctorLayout({ children }) {
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
             <h1 className={styles.topbarTitle}>
-              {pathname === '/doctor' ? 'My Dashboard' : 'My Messages'}
+              {pathname === '/doctor' ? 'My Dashboard' : 
+               pathname.includes('/doctor/messages') ? 'Messages' :
+               pathname.includes('/doctor/reviews') ? 'Reviews' :
+               pathname.includes('/doctor/profile') ? 'Settings' : 'Doctor Portal'}
             </h1>
           </div>
         </header>

@@ -22,12 +22,10 @@ export default function AdminLayout({ children }) {
   return (
     <div className={styles.adminLayout}>
       {/* Mobile Overlay */}
-      {isSidebarOpen && (
-        <div 
-          className={styles.mobileOverlay} 
-          onClick={() => setIsSidebarOpen(false)}
-        ></div>
-      )}
+      <div 
+        className={`${styles.mobileOverlay} ${isSidebarOpen ? styles.mobileOverlayVisible : ''}`}
+        onClick={() => setIsSidebarOpen(false)}
+      ></div>
 
       {/* Sidebar */}
       <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
@@ -133,8 +131,11 @@ export default function AdminLayout({ children }) {
             </button>
             <h1 className={styles.topbarTitle}>
               {pathname === '/admin' ? 'Dashboard' : 
-               pathname.includes('/admin/appointments') ? 'Manage Appointments' :
-               pathname.includes('/admin/settings') ? 'Clinic Settings' : 'Admin'}
+               pathname.includes('/admin/appointments') ? 'Appointments' :
+               pathname.includes('/admin/doctors') ? 'Doctors' :
+               pathname.includes('/admin/messages') ? 'Messages' :
+               pathname.includes('/admin/reviews') ? 'Reviews' :
+               pathname.includes('/admin/settings') ? 'Settings' : 'Admin'}
             </h1>
           </div>
           <div className={styles.topbarRight}>
